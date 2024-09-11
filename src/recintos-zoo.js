@@ -68,9 +68,9 @@ class RecintosZoo {
         if (recintosViaveis.length === 0) {
             return { erro: "Não há recinto viável", recintosViaveis: null }; 
         }
+        return { erro: null, recintosViaveis };
     } 
     
-
 }
 
 export { RecintosZoo as RecintosZoo };
