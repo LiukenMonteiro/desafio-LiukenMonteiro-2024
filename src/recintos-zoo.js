@@ -19,7 +19,11 @@ class RecintosZoo {
     }
 
 
-    analisaRecintos(animal, quantidade) {
+    analisaRecintos(animal, quantidade) { 
+        //vamos verificar a validade do animal
+        if (!this.animais[animal]) {
+            return { erro: "Animal inválido", recintosViaveis: null };
+        }
     }
 
 }
