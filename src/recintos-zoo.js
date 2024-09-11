@@ -65,7 +65,11 @@ class RecintosZoo {
                 }
             }
         }
-    }
+        if (recintosViaveis.length === 0) {
+            return { erro: "Não há recinto viável", recintosViaveis: null }; 
+        }
+    } 
+    
 
 }
 
