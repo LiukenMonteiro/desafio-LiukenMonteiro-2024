@@ -24,6 +24,10 @@ class RecintosZoo {
         if (!this.animais[animal]) {
             return { erro: "Animal inválido", recintosViaveis: null };
         }
+
+        if (quantidade <= 0) {
+            return { erro: "Quantidade inválida", recintosViaveis: null };
+        }
     }
 
 }
