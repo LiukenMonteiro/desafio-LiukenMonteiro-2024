@@ -54,6 +54,11 @@ class RecintosZoo {
                     outrasEspecies++;
                 }
             }
+            //verificando se o recinto tem espaço suficiente
+            if (especie.bioma.includees(recinto.bioma)) {
+                // espaço extra caso haja mais de uma espécie no recinto
+                const espacoNecessario = quantidade * especie.tamanho + (outrasEspecies > 0 ? 1 : 0)
+            }
         }
     }
 
