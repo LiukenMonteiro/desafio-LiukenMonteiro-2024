@@ -39,7 +39,7 @@ describe('Recintos do Zoologico', () => {
       // Novo teste: Deve encontrar recintos com múltiplos biomas
       test('Deve encontrar recinto com múltiplos biomas para o hipopótamo', () => {
         const resultado = new RecintosZoo().analisaRecintos('HIPOPOTAMO', 1);
-        console.log(resultado.recintosViaveis); // Para ver o que está sendo retornado
+        // console.log(resultado.recintosViaveis); // Para ver o que está sendo retornado
         expect(resultado.erro).toBeFalsy();
         expect(resultado.recintosViaveis[0]).toBe('Recinto 1 (espaço livre: 2 total: 10)');
         expect(resultado.recintosViaveis[1]).toBe('Recinto 3 (espaço livre: 0 total: 7)');
