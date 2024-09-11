@@ -8,13 +8,14 @@ class RecintosZoo {
             { numero: 4, bioma: 'rio', tamanho: 8, animais: [] },
             { numero: 5, bioma: 'savana', tamanho: 9, animais: [{ especie: 'LEAO', quantidade: 1 }] }
         ];
+        
         this.animais = {
             LEAO: { tamanho: 3, biomas: ['savana'], carnivoro: true },
             LEOPARDO: { tamanho: 2, biomas: ['savana'], carnivoro: true },
             CROCODILO: { tamanho: 3, biomas: ['rio'], carnivoro: true },
-            MACACO: { tamanho: 3, biomas: ['savana', 'floresta'], carnivoro: false },
-            GAZELA: { tamanho: 3, biomas: ['savana'], carnivoro: false },
-            HIPOPOTAMO: { tamanho: 3, biomas: ['savana', 'rio'], carnivoro: false }
+            MACACO: { tamanho: 1, biomas: ['savana', 'floresta'], carnivoro: false },
+            GAZELA: { tamanho: 2, biomas: ['savana'], carnivoro: false },
+            HIPOPOTAMO: { tamanho: 4, biomas: ['savana', 'rio'], carnivoro: false }
         };
     }
 
@@ -28,18 +29,16 @@ class RecintosZoo {
         if (quantidade <= 0) {
             return { erro: "Quantidade inválida", recintosViaveis: null };
         }
-        const especie = this.animais[animal];
 
+        const especie = this.animais[animal];
+        
         const recintosViaveis = [];
 
         for (let recinto of this.recintos) {
             let espacoOcupado = 0;
             let carnivoroPresente = false;
             let outrasEspecies = 0;
-            //vamos verificar se o recinto é compatível com o animal.
-            // if (recinto.bioma === especie.biomas[0] && recinto.tamanho >= quantidade * especie.tamanho) {
-            //     recintosViaveis.push(`Recinto ${recinto.numero} (espaço livre: ${recinto.tamanho - quantidade * especie.tamanho} total: ${recinto.tamanho})`);
-            // }
+
 
             for ( let animalExiste of recinto.animais) {
                 const especieExiste = this.animais[animalExiste.especie];
@@ -55,9 +54,9 @@ class RecintosZoo {
                 }
             }
             //verificando se o recinto tem espaço suficiente
-            if (especie.bioma.includees(recinto.bioma)) {
+            if (especie.biomas.includes(recinto.bioma)) {
                 // espaço extra caso haja mais de uma espécie no recinto
-                const espacoNecessario = quantidade * especie.tamanho + (outrasEspecies > 0 ? 1 : 0)
+                const espacoNecessario = quantidade * especie.tamanho; + (outrasEspecies > 0 ? 1 : 0)
 
                 if (recinto.tamanho - espacoOcupado >= espacoNecessario) {
                     // recinto entra para a lista de viáveis
@@ -69,8 +68,14 @@ class RecintosZoo {
             return { erro: "Não há recinto viável", recintosViaveis: null }; 
         }
         return { erro: null, recintosViaveis };
+        
     } 
     
 }
+
+
+const zoo = new RecintosZoo();
+const resultado = zoo.analisaRecintos('MACACO', 3);
+console.log(resultado);
 
 export { RecintosZoo as RecintosZoo };
