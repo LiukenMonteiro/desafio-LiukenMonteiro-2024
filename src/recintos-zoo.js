@@ -49,6 +49,10 @@ class RecintosZoo {
                 if (especieExiste.carnivoro) {
                     carnivoroPresente = true;
                 }
+                //verificando se é de outra espécie
+                if (animalExiste.especie !== animal) {
+                    outrasEspecies += animalExiste.quantidade;
+                }
             }
         }
     }
