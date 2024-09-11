@@ -20,13 +20,31 @@ class RecintosZoo {
 
 
     analisaRecintos(animal, quantidade) { 
-        //vamos verificar a validade do animal
+        //vamos verificar a validade do animal.
         if (!this.animais[animal]) {
             return { erro: "Animal inválido", recintosViaveis: null };
         }
-
+        //vamos verificar se a quantidade do animal é válida.
         if (quantidade <= 0) {
             return { erro: "Quantidade inválida", recintosViaveis: null };
+        }
+        const especie = this.animais[animal];
+
+        const recintosViaveis = [];
+
+        for (let recinto of this.recintos) {
+            let espacoOcupado = 0;
+            let carnivoroPresente = false;
+            let outrasEspecies = 0;
+            //vamos verificar se o recinto é compatível com o animal.
+            // if (recinto.bioma === especie.biomas[0] && recinto.tamanho >= quantidade * especie.tamanho) {
+            //     recintosViaveis.push(`Recinto ${recinto.numero} (espaço livre: ${recinto.tamanho - quantidade * especie.tamanho} total: ${recinto.tamanho})`);
+            // }
+
+            for ( let animalExiste of recinto.animais) {
+                const especieExiste = this.animais[animalExiste.especie];
+                espacoOcupado += animalExiste.quantidade * especieExiste.tamanho;
+            }
         }
     }
 
