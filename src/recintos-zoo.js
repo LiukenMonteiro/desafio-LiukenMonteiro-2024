@@ -51,7 +51,7 @@ class RecintosZoo {
                 }
                 //verificando se é de outra espécie
                 if (animalExiste.especie !== animal) {
-                    outrasEspecies += animalExiste.quantidade;
+                    outrasEspecies++;
                 }
             }
         }
