@@ -44,6 +44,11 @@ class RecintosZoo {
             for ( let animalExiste of recinto.animais) {
                 const especieExiste = this.animais[animalExiste.especie];
                 espacoOcupado += animalExiste.quantidade * especieExiste.tamanho;
+
+                //verificando se é carnívoro
+                if (especieExiste.carnivoro) {
+                    carnivoroPresente = true;
+                }
             }
         }
     }
