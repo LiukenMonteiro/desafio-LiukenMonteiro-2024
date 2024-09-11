@@ -52,6 +52,11 @@ class RecintosZoo {
                 }
             }
 
+            // carnivoro presente? herbivoro não pode ficar junto "resolvendo o problema do macaco"
+            if (carnivoroPresente && !especie.carnivoro) {
+                continue; // proximo recinto
+            }
+
             // Verificar se o animal pode habitar o bioma do recinto
             if (especie.biomas.includes(recinto.bioma)) {
                 // Calcular o espaço necessário
