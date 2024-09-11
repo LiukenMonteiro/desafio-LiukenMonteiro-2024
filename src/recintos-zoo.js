@@ -13,25 +13,24 @@ class RecintosZoo {
             LEAO: { tamanho: 3, biomas: ['savana'], carnivoro: true },
             LEOPARDO: { tamanho: 2, biomas: ['savana'], carnivoro: true },
             CROCODILO: { tamanho: 3, biomas: ['rio'], carnivoro: true },
-            MACACO: { tamanho: 1, biomas: ['savana', 'floresta'], carnivoro: false },
+            MACACO: { tamanho: 1, biomas: ['savana', 'savana e rio', 'floresta'], carnivoro: false },
             GAZELA: { tamanho: 2, biomas: ['savana'], carnivoro: false },
-            HIPOPOTAMO: { tamanho: 4, biomas: ['savana', 'rio'], carnivoro: false }
+            HIPOPOTAMO: { tamanho: 4, biomas: ['savana', 'rio', 'savana e rio'], carnivoro: false }
         };
     }
 
 
     analisaRecintos(animal, quantidade) { 
-        //vamos verificar a validade do animal.
+        // Validar o animal
         if (!this.animais[animal]) {
             return { erro: "Animal inválido", recintosViaveis: null };
         }
-        //vamos verificar se a quantidade do animal é válida.
+        // Validar a quantidade
         if (quantidade <= 0) {
             return { erro: "Quantidade inválida", recintosViaveis: null };
         }
 
         const especie = this.animais[animal];
-        
         const recintosViaveis = [];
 
         for (let recinto of this.recintos) {
@@ -39,43 +38,42 @@ class RecintosZoo {
             let carnivoroPresente = false;
             let outrasEspecies = 0;
 
-
-            for ( let animalExiste of recinto.animais) {
+            for (let animalExiste of recinto.animais) {
                 const especieExiste = this.animais[animalExiste.especie];
                 espacoOcupado += animalExiste.quantidade * especieExiste.tamanho;
 
-                //verificando se é carnívoro
+                // Verificar se há carnívoros no recinto
                 if (especieExiste.carnivoro) {
                     carnivoroPresente = true;
                 }
-                //verificando se é de outra espécie
+                // Verificar se há outras espécies
                 if (animalExiste.especie !== animal) {
                     outrasEspecies++;
                 }
             }
-            //verificando se o recinto tem espaço suficiente
-            if (especie.biomas.includes(recinto.bioma)) {
-                // espaço extra caso haja mais de uma espécie no recinto
-                const espacoNecessario = quantidade * especie.tamanho; + (outrasEspecies > 0 ? 1 : 0)
 
+            // Verificar se o animal pode habitar o bioma do recinto
+            if (especie.biomas.includes(recinto.bioma)) {
+                // Calcular o espaço necessário
+                const espacoNecessario = quantidade * especie.tamanho + (outrasEspecies > 0 ? 1 : 0);
+
+                // Verificar se há espaço disponível no recinto
                 if (recinto.tamanho - espacoOcupado >= espacoNecessario) {
-                    // recinto entra para a lista de viáveis
                     recintosViaveis.push(`Recinto ${recinto.numero} (espaço livre: ${recinto.tamanho - espacoOcupado - espacoNecessario} total: ${recinto.tamanho})`);
                 }
             }
         }
+
         if (recintosViaveis.length === 0) {
             return { erro: "Não há recinto viável", recintosViaveis: null }; 
         }
         return { erro: null, recintosViaveis };
-        
-    } 
-    
+    }
 }
 
-
+// Testando o código
 const zoo = new RecintosZoo();
-const resultado = zoo.analisaRecintos('MACACO', 3);
+const resultado = zoo.analisaRecintos('MACACO', 2);
 console.log(resultado);
 
 export { RecintosZoo as RecintosZoo };
